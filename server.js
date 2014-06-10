@@ -18,10 +18,6 @@ app.get('/api/transactions', function(req, res) {
   var end = start+rowSize-1;
   var transactions = transactionData.slice(start, end);
 
-  // need to validate the query string
-  // make sure the pagination is not skipping or sending repeats
-  // dont set a next url when you run out of data?
-
   var json = {
     data: transactions,
     nextUrl: '/api/transactions/?row=' + (start + rowSize)
