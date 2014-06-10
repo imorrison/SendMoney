@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <form id="payment-form">
+
+    <div class="input-field">
+      <label for="email">To:</label>
+      <input id="email" type="email" name="email" placeholder="uie@paypal.com" required autofocus>
+      <i class="fa fa-check"></i>
+    </div>
+
+    <div class="input-field">
+      <div id="display-value"></div>
+
+      <label for="amount">Amount:</label>
+      <input id="amount" type="number" name="amount" placeholder="$1.00" min="0" step="0.01" required>
+      <select name="currency" id="currency">
+        <option value="USD" selected>USD</option>
+        <option value="EUR">EUR</option>
+        <option value="JPY">JPY</option>
+      </select>
+    </div>
+
+    <div class="input-field">
+      <textarea id="message" name="message" placeholder="Message (optional):"></textarea>
+    </div>
+
+    <p>What's this payment for?</p>
+
+    <div class="input-field checkboxes">
+
+      <label for="family-friends" class="checkbox-top">
+        I'm sending money to family or friends
+      </label>
+      <input type="radio" name="payment-type" id="family-friends">
+      <i class="fa fa-check"></i>
+
+      <hr>
+
+      <label for="goods=services">
+        I'm paying for goods or services
+      </label>
+      <input type="radio" name="payment-type" id="goods=services">
+      <i class="fa fa-check"></i>
+    </div>
+
+
+
+    <div class="form-btns">
+      <button type="reset" class="reset btn">Clear</button>
+      <button type="submit" class="next btn">Next</button>
+    </div>
+  </form>
+</div>

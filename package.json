@@ -1,0 +1,20 @@
+{
+  "name": "send_money",
+  "version": "0.0.0",
+  "description": "UI Exercise",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Ian Morrison",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.4.1",
+    "nodemon": "~1.1.1",
+    "morgan": "~1.1.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-handlebars": "~0.8.0",
+    "grunt": "~0.4.5"
+  }
+}
