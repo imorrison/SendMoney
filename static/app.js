@@ -8,6 +8,28 @@ var SendMoney = {
   }
 };
 
+SendMoney.Models.Transaction = Backbone.Model.extend({
+  validate: function(attrs) {
+    if (!this.validateEmail(attrs.email)) {
+      return 'Invalid Email';
+    }
+
+    if (!this.validateAmount(attrs.amount)) {
+      return 'Invalid Amount';
+    }
+  },
+
+  validateEmail: function(email) {
+    if (!email) return false;
+    return email.length > 3;
+  },
+
+  validateAmount: function(amount) {
+    if (!amount) return false;
+    return _.isNumber(+amount) && amount > 0;
+  }
+});
+
 
 SendMoney.Views.Payment = Backbone.View.extend({
   template: JST['templates/payment-form.hbs'],
@@ -29,9 +51,17 @@ SendMoney.Views.Payment = Backbone.View.extend({
   },
 
   showDisplayValue: function() {
-    // maybe change placeholder text?
-    var inputValue = document.getElementById('amount').valueAsNumber;
-    var displayValue = this.formatCurrency(inputValue);
+    var input = document.getElementById('amount');
+    var inputValue = input.valueAsNumber;
+    var isEmpty = !input.validity.badInput;
+    var displayValue;
+
+    if (inputValue > 0 || isEmpty) {
+      displayValue = this.formatCurrency(inputValue);
+    } else {
+      displayValue = input.validationMessage;
+    }
+
     this.$('#display-value').text(displayValue);
   },
 
@@ -183,11 +213,10 @@ SendMoney.Views.Transactions = Backbone.View.extend({
 });
 
 
-SendMoney.Models.Transaction = Backbone.Model.extend({});
-
-
 SendMoney.Views.App = Backbone.View.extend({
-  initialize: function() {
+  initialize: function(options) {
+    this.router = options.router;
+
     this.transacion = new SendMoney.Models.Transaction();
 
     this.sendmoneyView = new SendMoney.Views.Payment({
@@ -219,7 +248,9 @@ SendMoney.Views.App = Backbone.View.extend({
   },
 
   success: function() {
-    if(this.transacion)
+    if(!this.transacion.isValid()) {
+      window.location.hash = 'sendmoney';
+    }
 
     this.sucessView.render();
     this.$footer.html('<a class="btn sendmoney" href="#sendmoney">Send Money</a><a class="btn transaction" href="#transactions">Transaction History</a>');
@@ -244,7 +275,7 @@ SendMoney.Router = Backbone.Router.extend({
 
   initialize: function() {
     this.appView = new SendMoney.Views.App({
-      el: 'body',
+      el: 'body'
     });
 
     this.on('route', this.unbindScroll);
