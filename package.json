@@ -4,7 +4,9 @@
   "description": "UI Exercise",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "postinstall": "bower install && npm run build",
+    "start": "nodemon server.js",
+    "build": "grunt"
   },
   "author": "Ian Morrison",
   "license": "ISC",
