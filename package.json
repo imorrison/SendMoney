@@ -18,5 +18,8 @@
   "devDependencies": {
     "grunt-contrib-handlebars": "~0.8.0",
     "grunt": "~0.4.5"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
